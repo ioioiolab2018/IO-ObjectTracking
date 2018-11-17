@@ -6,7 +6,7 @@ def main():
     print_help()
 
     key = input()
-    # key = key.rstrip('\n')
+    key = key.rstrip('\n')
 
     if key == "1":
         algorithms.color_run()
