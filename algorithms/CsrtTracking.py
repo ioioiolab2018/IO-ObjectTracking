@@ -2,18 +2,16 @@ from random import randint
 import cv2
 import sys
 
-# from tracking import createTrackerByName
-CAMERA_ADDRESS = 0  # "http://192.168.0.11:8080/mjpeg"
 
 
-def csrt_run():
-    video, image, colors, selected_objects = capture()
+def csrt_run(cam = 0):
+    video, image, colors, selected_objects = capture(cam)
     multi_tracker = initialize_tracker(image, selected_objects)
     run_algorithm(video, multi_tracker, colors)
 
 
-def capture():
-    video = cv2.VideoCapture(CAMERA_ADDRESS)
+def capture(camera_address = 0):
+    video = cv2.VideoCapture(camera_address)
 
     if not video.isOpened():
         print("Video can not be captured!")
@@ -79,7 +77,3 @@ def run_algorithm(video, multi_tracker, colors):
         k = cv2.waitKey(1) & 0xff
         if k == 27:
             break
-
-
-# if __name__ == '__main__':
-#     csrt_run()

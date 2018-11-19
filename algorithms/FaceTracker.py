@@ -3,18 +3,18 @@ import sys
 import cv2
 import os
 
-CAMERA_ADDRESS = 0  # "http://192.168.0.11:8080/mjpeg"
+
 FRAME_QUANTITY = 20
 
 
-def face_run():
-    video = capture()
+def face_run(cam = 0):
+    video = capture(cam)
     face_cascade = initialize_classifier()
     run_algorithm(video, face_cascade)
 
 
-def capture():
-    video = cv2.VideoCapture(CAMERA_ADDRESS)
+def capture(cam =0):
+    video = cv2.VideoCapture(cam)
 
     if not video.isOpened():
         print("Video can not be captured!")

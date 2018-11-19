@@ -4,18 +4,17 @@ import sys
 import imutils
 import numpy as np
 
-CAMERA_ADDRESS = 0  # "http://192.168.0.11:8080/mjpeg"
 diffA = 0.7
 diffB = 1.3
 
 
-def color_run():
-    video, colors, lower, upper = capture()
+def color_run(cam=0):
+    video, colors, lower, upper = capture(cam)
     run_algorithm(video, colors, lower, upper)
 
 
-def capture():
-    video = cv2.VideoCapture(CAMERA_ADDRESS)
+def capture(cam = 0):
+    video = cv2.VideoCapture(cam)
 
     if not video.isOpened():
         print("Video can not be captured!")
