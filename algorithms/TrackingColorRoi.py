@@ -4,8 +4,8 @@ import sys
 import imutils
 import numpy as np
 
-diffA = 0.7
-diffB = 1.3
+diffA = 0.9
+diffB = 1.1
 
 
 def color_run(cam=0):
@@ -13,7 +13,7 @@ def color_run(cam=0):
     run_algorithm(video, colors, lower, upper)
 
 
-def capture(cam = 0):
+def capture(cam=0):
     video = cv2.VideoCapture(cam)
 
     if not video.isOpened():
@@ -87,8 +87,9 @@ def run_algorithm(video, colors, lower, upper):
 
         k = cv2.waitKey(1) & 0xff
         if k == 27:
+            cv2.destroyAllWindows()
+            video.release()
             break
-
 
 # if __name__ == '__main__':
 #     color_run()

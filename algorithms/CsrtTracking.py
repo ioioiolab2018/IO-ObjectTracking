@@ -3,14 +3,13 @@ import cv2
 import sys
 
 
-
-def csrt_run(cam = 0):
+def csrt_run(cam=0):
     video, image, colors, selected_objects = capture(cam)
     multi_tracker = initialize_tracker(image, selected_objects)
     run_algorithm(video, multi_tracker, colors)
 
 
-def capture(camera_address = 0):
+def capture(camera_address=0):
     video = cv2.VideoCapture(camera_address)
 
     if not video.isOpened():
@@ -76,4 +75,6 @@ def run_algorithm(video, multi_tracker, colors):
 
         k = cv2.waitKey(1) & 0xff
         if k == 27:
+            cv2.destroyAllWindows()
+            video.release()
             break

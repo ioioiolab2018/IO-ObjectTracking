@@ -3,17 +3,16 @@ import sys
 import cv2
 import os
 
-
 FRAME_QUANTITY = 20
 
 
-def face_run(cam = 0):
+def face_run(cam=0):
     video = capture(cam)
     face_cascade = initialize_classifier()
     run_algorithm(video, face_cascade)
 
 
-def capture(cam =0):
+def capture(cam=0):
     video = cv2.VideoCapture(cam)
 
     if not video.isOpened():
@@ -56,7 +55,6 @@ def run_algorithm(video, face_cascade):
         if ok:
             p1 = (int(bbox[0]), int(bbox[1]))
             (x, y, w, h) = bbox
-            print(bbox)
             last_face = frame[int(y):int(y) + int(h), int(x):int(x) + int(w)]
             last_position = p1
             p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
@@ -69,6 +67,8 @@ def run_algorithm(video, face_cascade):
 
         k = cv2.waitKey(1) & 0xff
         if k == 27:
+            cv2.destroyAllWindows()
+            video.release()
             break
 
 
@@ -93,7 +93,6 @@ def find_face(video, face_cascade, last_face, last_position, search):
         faces.extend(face_cascade.detectMultiScale(gray, 1.2, 5))
 
         if len(faces) > 0:
-            print(faces)
             distance = []
             minimum = 0
             for i, (x, y, w, h) in enumerate(faces):
@@ -113,7 +112,6 @@ def find_face(video, face_cascade, last_face, last_position, search):
 def draw_fps_counter(frame, timer):
     fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer)
     cv2.putText(frame, "FPS : " + str(int(fps)), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (50, 170, 50), 2)
-
 
 # if __name__ == '__main__':
 #     face_run()
